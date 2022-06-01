@@ -35,16 +35,25 @@ class _MyFlutterAppState extends State<MyFlutterApp> {
     '=',
   ];
 
-  String update = "";
+  String update = "0";
 
-  set(String up) {
+  set({required String up, bool clear = false}) {
     setState(() {
-      if (up != "") {
-        update += up;
+      if (clear) update = "";
+      if (up != "0") {
+        if (update == "0")
+          update = up;
+        else
+          update += up;
       } else {
         update = up;
       }
+      // print(update);
     });
+  }
+
+  get() {
+    return double.parse(update);
   }
 
   @override
@@ -60,13 +69,13 @@ class _MyFlutterAppState extends State<MyFlutterApp> {
                 child: Container(
                     margin: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(26, 24, 1, 153),
+                      color: const Color.fromARGB(26, 24, 1, 153),
                       border: Border.all(
-                        color: Color.fromARGB(40, 0, 0, 0),
+                        color: const Color.fromARGB(40, 0, 0, 0),
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Container(
+                    child: SizedBox(
                         width: double.infinity,
                         height: double.infinity,
                         child: Align(
@@ -106,8 +115,7 @@ class _MyFlutterAppState extends State<MyFlutterApp> {
                                       style: const TextStyle(
                                           fontSize: 40.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(
-                                              213, 255, 255, 255),
+                                          color: Color.fromARGB(212, 0, 0, 0),
                                           wordSpacing: 2.0),
                                     ),
                                   ),
@@ -148,6 +156,7 @@ class _MyFlutterAppState extends State<MyFlutterApp> {
                         color: const Color.fromARGB(221, 89, 25, 207),
                         textColor: const Color.fromARGB(255, 216, 196, 250),
                         set: set,
+                        get: get,
                       );
                     },
                   ),
